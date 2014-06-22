@@ -42,6 +42,15 @@ module.exports = function(app, passport) {
     req.logout();
     res.redirect('/');
   });
+
+  // TWITTER ROUTES
+  app.get('/auth/twitter', passport.authenticate('twitter'));
+
+  app.get('/auth/twitter/callback',
+    passport.authenticate('twitter', {
+      successRedirect: '/profile',
+      failureRedirect: '/'
+  }));
 };
 
 function isLoggedIn(req, res, next) {
